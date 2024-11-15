@@ -1,0 +1,51 @@
+class Pet:
+  def __init__(self, name, species):
+        self.name = name
+        self.species = species.lower()
+        self.energy = 100  
+        self.hunger = 0    
+        self.happiness = 100  
+
+  def eat(self, food_amount):
+        """Покормить питомца."""
+        if self.hunger > 0:
+            self.hunger = max(0, self.hunger - food_amount)
+            self.energy = min(100, self.energy + food_amount // 2)
+            print(f"{self.name} с удовольствием покушал!")
+        else:
+            print(f"{self.name} не голоден.")
+
+  def play(self, time):
+        """Поиграть с питомцем."""
+        if self.energy >= time and self.hunger + time <= 100:
+            self.energy -= time
+            self.hunger += time
+            self.happiness = min(100, self.happiness + time // 2)
+            print(f"{self.name} отлично провел время, играя с вами!")
+        else:
+            print(f"{self.name} слишком устал или голоден, чтобы играть.")
+
+  def sleep(self, time):
+        """Уложить питомца спать."""
+        self.energy = min(100, self.energy + time * 10)
+        self.happiness = min(100, self.happiness + time)
+        print(f"{self.name} сладко поспал и восстановил силы.")
+
+  def status(self):
+        """Показать текущее состояние питомца."""
+        print(f"Имя: {self.name}")
+        print(f"Вид: {'Котик' if self.species == 'cat' else 'Собачка'}")
+        print(f"Энергия: {self.energy}")
+        print(f"Голод: {self.hunger}")
+        print(f"Счастье: {self.happiness}")
+
+
+
+my_pet = Pet(name="Барсик", species="cat")
+my_pet.status()
+my_pet.play(20)
+my_pet.status()
+my_pet.eat(30)
+my_pet.status()
+my_pet.sleep(5)
+my_pet.status()
